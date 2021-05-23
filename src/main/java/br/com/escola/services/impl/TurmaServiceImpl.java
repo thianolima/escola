@@ -4,7 +4,6 @@ import br.com.escola.entities.AlunoEntity;
 import br.com.escola.entities.TurmaEntity;
 import br.com.escola.repositories.TurmaRepository;
 import br.com.escola.services.TurmaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +12,11 @@ import java.util.List;
 @Service
 public class TurmaServiceImpl implements TurmaService {
 
-    @Autowired
     TurmaRepository turmaRepository;
+
+    public TurmaServiceImpl(TurmaRepository turmaRepository){
+        this.turmaRepository = turmaRepository;
+    }
 
     @Override
     public TurmaEntity salvar(TurmaEntity turma){

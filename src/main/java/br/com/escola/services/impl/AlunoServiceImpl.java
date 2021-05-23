@@ -3,7 +3,6 @@ package br.com.escola.services.impl;
 import br.com.escola.entities.AlunoEntity;
 import br.com.escola.repositories.AlunoRepository;
 import br.com.escola.services.AlunoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +12,11 @@ import java.util.List;
 @Service
 public class AlunoServiceImpl implements AlunoService {
 
-    @Autowired
     AlunoRepository alunoRepository;
+
+    public AlunoServiceImpl(AlunoRepository alunoRepository){
+        this.alunoRepository = alunoRepository;
+    }
 
     @Override
     public AlunoEntity salvar(AlunoEntity aluno) {

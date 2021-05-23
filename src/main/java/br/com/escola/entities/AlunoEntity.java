@@ -1,7 +1,10 @@
 package br.com.escola.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
@@ -21,6 +24,9 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded=true)
 @Table(name = "aluno", uniqueConstraints = @UniqueConstraint(columnNames= {"email"}, name="uk_aluno_email"))

@@ -1,6 +1,5 @@
 package br.com.escola.templates;
 
-import br.com.escola.vos.AlunoVO;
 import br.com.escola.vos.TurmaVO;
 import lombok.Getter;
 
