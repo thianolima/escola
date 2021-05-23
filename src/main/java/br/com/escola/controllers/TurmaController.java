@@ -82,7 +82,6 @@ public class TurmaController implements TurmaAPI {
     public ResponseEntity<HttpStatus> excluirAluno(Long idTurma, Long idAluno) {
         AlunoEntity aluno = alunoService.pesquisarPorId(idAluno);
         TurmaEntity turma = turmaService.pesquisarPorId(idTurma);
-        //turma.excluirAluno(aluno);
         turmaService.excluirAlunoTurma(turma, aluno);
         return ResponseEntity.noContent().build();
     }

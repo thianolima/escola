@@ -44,8 +44,4 @@ public class TurmaEntity extends BaseEntity{
         alunos.add(aluno);
     }
 
-    public void excluirAluno(AlunoEntity aluno){
-        int idx = this.alunos.lastIndexOf(aluno);
-        this.alunos.remove(idx);
-    }
 }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Getter
@@ -22,5 +23,6 @@ public class AlunoVO {
 
     @ApiModelProperty(example = "aluno@escola.com.br", required = true)
     @NotBlank
+    @Email
     private String email;
 }
