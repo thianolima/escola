@@ -3,6 +3,7 @@ package br.com.escola.controllers;
 import br.com.escola.templates.AlunoVOTemplate;
 import br.com.escola.vos.AlunoVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.transaction.Transactional;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -86,6 +88,7 @@ public class AlunoControllerIntegrationTest {
         mvc.perform(get("/alunos/{idAluno}/turmas",1L))
                 .andDo(print())
                 .andExpect(jsonPath("$[0].nome").value("Conhecendo Spring de A a Z"))
+                .andExpect(jsonPath("*", hasSize(2)))
                 .andExpect(status().isOk());
     }
 }

@@ -4,9 +4,7 @@ import br.com.escola.api.AlunoAPI;
 import br.com.escola.dtos.AlunoDTO;
 import br.com.escola.dtos.TurmaDTO;
 import br.com.escola.entities.AlunoEntity;
-import br.com.escola.entities.TurmaEntity;
 import br.com.escola.services.AlunoService;
-import br.com.escola.services.TurmaService;
 import br.com.escola.vos.AlunoVO;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -78,6 +76,7 @@ public class AlunoController implements AlunoAPI {
         }
 
         List<TurmaDTO> dtos = aluno.getTurmas().stream()
+                .filter(turma -> turma.getAtivo())
                 .map(turma -> modelMapper.map(turma, TurmaDTO.class))
                 .collect(Collectors.toList());
 
