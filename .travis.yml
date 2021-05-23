@@ -4,7 +4,5 @@ jdk:
 dist: trusty
 before_install:
   - chmod +x mvnw
-
 notifications:
   email: thianolima@hotmail.com
-
