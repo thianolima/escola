@@ -82,7 +82,7 @@ public class AlunoControllerTest {
     }
 
     @Test
-    public void deveListarTodosAlunos() throws Exception {
+    public void deveListarTodosAlunosAtivo() throws Exception {
         List<AlunoEntity> alunos = Arrays.asList(
                 AlunoEntityTemplate.getInstance().getObjectValid(),
                 AlunoEntityTemplate.getInstance().getObjectValid(),
@@ -103,7 +103,8 @@ public class AlunoControllerTest {
 
     @Test
     public void deveLancarExceptionAoListarTodosAlunosComBancoVazio() throws Exception {
-        BDDMockito.given(alunoService.listar()).willReturn(null);
+        BDDMockito.given(alunoService.listar())
+                .willReturn(null);
 
         mvc.perform(get("/alunos"))
                 .andDo(print())
