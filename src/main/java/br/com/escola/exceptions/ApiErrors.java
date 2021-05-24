@@ -24,7 +24,7 @@ public class ApiErrors extends ResponseEntityExceptionHandler {
     @Autowired
     private MessageSource messageSource;
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public ResponseEntity<?> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request){
 
@@ -32,7 +32,7 @@ public class ApiErrors extends ResponseEntityExceptionHandler {
 
         ProblemaDTO problema = ProblemaDTO.builder()
             .status_code(status.value())
-            .menssagem(ex.getMessage())
+            .mensagem("A pesquisa ao banco de dados não retornou nenhum resultado: " + ex.getMessage())
             .build();
 
         return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
@@ -44,7 +44,7 @@ public class ApiErrors extends ResponseEntityExceptionHandler {
                                                              HttpStatus status, WebRequest request) {
         if (body == null) {
             body = ProblemaDTO.builder()
-                    .menssagem(status.getReasonPhrase())
+                    .mensagem(status.getReasonPhrase())
                     .status_code(status.value())
                     .build();
         }
@@ -60,7 +60,7 @@ public class ApiErrors extends ResponseEntityExceptionHandler {
                 .map(fieldError -> {
                     String message = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
                     return ProblemaDTO.builder()
-                            .menssagem(message)
+                            .mensagem(message)
                             .status_code(status.value())
                             .build();
                 }).collect(Collectors.toList());

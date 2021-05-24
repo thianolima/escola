@@ -15,7 +15,9 @@ public class AlunoEntityTemplate extends BaseTemplate{
                 .id(faker.number().randomNumber())
                 .nome(faker.superhero().name())
                 .email(faker.bothify("????##@gmail.com"))
-                .turmas(Arrays.asList(TurmaEntityTemplate.getInstance().getObjectValid()))
+                .turmas(Arrays.asList(TurmaEntityTemplate.getInstance().getObjectValid(),
+                        TurmaEntityTemplate.getInstance().getObjectValid(),
+                        TurmaEntityTemplate.getInstance().getObjectValid()))
                 .build();
     }
 }

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class BaseEntity {
 
     @CreationTimestamp
-    private LocalDateTime dataCriacao;
+    private LocalDateTime dataCriacao = LocalDateTime.now();
     
-    private Boolean ativo;
+    private Boolean ativo = Boolean.TRUE;
 }

@@ -8,5 +8,5 @@ import lombok.Getter;
 public class ProblemaDTO {
 
 	private Integer status_code;
-	private String menssagem;
+	private String mensagem;
 }
