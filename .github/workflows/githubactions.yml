@@ -20,7 +20,7 @@ jobs:
       with:
         java-version: '1.8'        
     - name: Compile
-      run: mvn clear compile -Dmaven.test.skip=true;
+      run: mvn compile -Dmaven.test.skip=true;
 
   test:
     name: Test
@@ -44,5 +44,4 @@ jobs:
         with:
           java-version: '1.8'
       - name: Build
-        run: mvn -B package --file pom.xml -Dmaven.test.skip=true
-    
+        run: mvn -B clear package --file pom.xml -Dmaven.test.skip=true
