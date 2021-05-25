@@ -55,4 +55,4 @@ jobs:
         path: target/site/jacoco/
       
     - name: Build
-      run: mvn -B clean package --file pom.xml -Dmaven.test.skip=true    
+      run: mvn -B package --file pom.xml -Dmaven.test.skip=true
