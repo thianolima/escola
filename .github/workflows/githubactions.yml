@@ -23,7 +23,7 @@ jobs:
       run: mvn -B clean package --file pom.xml -Dmaven.test.skip=true
 
   test-unit:
-    name: Test Unit
+    name: Unit Test
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -36,7 +36,7 @@ jobs:
       run: mvn test
 
   test-integration:
-    name: Test Integration
+    name: Integration Test
     needs: [build]
     runs-on: ubuntu-latest
     steps:
