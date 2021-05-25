@@ -36,7 +36,7 @@ public class SwaggerConfiguration{
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("API para vaga de bakcend TOTVS")
+                .title("Escola API")
                 .description("API desenvolvida no processo seletivo para a vaga de backend.")
                 .version("0.0.1")
                 .license("GPL")
