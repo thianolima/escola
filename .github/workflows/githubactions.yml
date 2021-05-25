@@ -27,3 +27,7 @@ jobs:
       run: mvn integration-test
     - name: Build
       run: mvn -B clean package --file pom.xml -Dmaven.test.skip=true
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2
+      with:
+        generate-branches-badge: true
