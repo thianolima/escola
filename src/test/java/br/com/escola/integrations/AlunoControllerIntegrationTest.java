@@ -1,7 +1,7 @@
-package br.com.escola.controllers;
+package br.com.escola.integrations;
 
-import br.com.escola.templates.TurmaVOTemplate;
-import br.com.escola.vos.TurmaVO;
+import br.com.escola.templates.AlunoVOTemplate;
+import br.com.escola.vos.AlunoVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.transaction.Transactional;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -23,18 +24,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Transactional
-public class TurmaControllerIntegrationTest {
+public class AlunoControllerIntegrationTest {
 
     @Autowired
     MockMvc mvc;
 
     @Test
-    public void deveInserirUmaNovaTurma() throws Exception {
-        TurmaVO vo = TurmaVOTemplate.getInstance().getObjectValid();
+    public void deveInserirUmNovoAluno() throws Exception {
+        AlunoVO vo = AlunoVOTemplate.getInstance().getObjectValid();
         String json = new ObjectMapper().writeValueAsString(vo);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .post("/turmas")
+                .post("/alunos")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -46,28 +47,30 @@ public class TurmaControllerIntegrationTest {
     }
 
     @Test
-    public void deveListarTodasTurmas() throws Exception {
-        mvc.perform(get("/turmas"))
+    public void deveListarTodosAlunos() throws Exception {
+        mvc.perform(get("/alunos"))
                 .andDo(print())
                 .andExpect(jsonPath("$[*].id").isNotEmpty())
                 .andExpect(jsonPath("$[*].nome").isNotEmpty())
+                .andExpect(jsonPath("$[*].email").isNotEmpty())
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void deveExcluirUmaTurma() throws Exception {
-        mvc.perform(delete("/turmas/{idTurma}",1L))
+    public void deveExcluirUmAluno() throws Exception {
+        mvc.perform(delete("/alunos/{idAluno}",1L))
                 .andExpect(status().isNoContent());
     }
 
     @Test
-    public void deveAlterarUmaTurma() throws Exception {
-        TurmaVO vo = TurmaVOTemplate.getInstance().getObjectValid();
-        vo.setNome("Nova Turma");
+    public void deveAlterarUmAluno() throws Exception {
+        AlunoVO vo = AlunoVOTemplate.getInstance().getObjectValid();
+        vo.setEmail("novo@email.com");
+
         String json = new ObjectMapper().writeValueAsString(vo);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .put("/turmas/1")
+                .put("/alunos/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(json);
@@ -75,28 +78,16 @@ public class TurmaControllerIntegrationTest {
         mvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").isNotEmpty())
-                .andExpect(jsonPath("nome").value(vo.getNome()));
+                .andExpect(jsonPath("nome").isNotEmpty())
+                .andExpect(jsonPath("email").value(vo.getEmail()));
     }
 
     @Test
-    public void deveInserirUmNovoAlunoNaTurma() throws Exception {
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .post("/turmas/{idTurma}/aluno/{idAluno}",1L, 3L)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request)
+    public void deveListarTumasDoluno() throws Exception {
+        mvc.perform(get("/alunos/{idAluno}/turmas",1L))
+                .andDo(print())
+                .andExpect(jsonPath("$[0].nome").value("Conhecendo Spring de A a Z"))
+                .andExpect(jsonPath("*", hasSize(2)))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    public void deveExcluirUmAlunoDaTurma() throws Exception {
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .delete("/turmas/{idTurma}/aluno/{idAluno}",1L, 3L)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON);
-
-        mvc.perform(request)
-                .andExpect(status().isNoContent());
     }
 }
