@@ -156,12 +156,8 @@
 				</executions>
 				<configuration>
 					<includes>
-						<include>**/integrations/*</include>
+						<include>**/*</include>
 					</includes>
-					<excludes>
-						<exclude>**/controllers/*</exclude>
-						<exclude>**/services/*</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 
@@ -184,6 +180,15 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<exclude>**/api/*</exclude>
+						<exclude>**/entities/*</exclude>
+						<exclude>**/exceptions/*</exclude>
+						<exclude>**/configurations/*</exclude>
+						<exclude>**/controllers/HomeController*</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
