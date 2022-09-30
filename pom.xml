@@ -199,7 +199,7 @@
 			<id>docker</id>
 			<build>
 				<plugins>
-				<plugin>
+					<plugin>
 						<groupId>com.spotify</groupId>
 						<artifactId>dockerfile-maven-plugin</artifactId>
 						<version>${dockerfile-maven-plugin.version}</version>
@@ -213,7 +213,6 @@
 							</execution>
 						</executions>
 						<configuration>
-							<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
 							<repository>thianolima/escola_api</repository>
 							<tag>${project.version}</tag>
 							<buildArgs>
